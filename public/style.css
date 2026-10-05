@@ -1,11 +1,15 @@
 :root {
-  --fundo: #0d1117;
-  --superficie: #161b22;
-  --borda: #30363d;
-  --texto: #e6edf3;
-  --texto-suave: #8b949e;
-  --destaque: #58a6ff;
-  --erro: #ff7b72;
+  --fundo: #f3f5f9;
+  --superficie: #ffffff;
+  --borda: #dde2ec;
+  --texto: #14213d;
+  --texto-suave: #5b6478;
+  --marca: #0f1f3d;
+  --destaque: #2457d6;
+  --destaque-escuro: #1b45b0;
+  --erro: #c62f3a;
+  --erro-fundo: #fdecee;
+  --sombra: 0 1px 2px rgba(15, 31, 61, 0.06), 0 8px 24px rgba(15, 31, 61, 0.07);
 }
 
 * {
@@ -18,124 +22,194 @@ body {
   background: var(--fundo);
   color: var(--texto);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  line-height: 1.5;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Barra superior fixa, como num site de verdade */
+body::before {
+  content: "Desenho Assinado";
+  display: flex;
+  align-items: center;
+  height: 64px;
+  padding: 0 max(16px, calc((100% - 760px) / 2));
+  background: var(--marca);
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.01em;
+  border-bottom: 3px solid var(--destaque);
 }
 
 main {
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto;
-  padding: 48px 16px;
+  padding: 48px 16px 72px;
 }
 
 h1 {
-  margin: 0 0 8px;
-  font-family: Georgia, serif;
-  font-weight: normal;
-  font-size: 2.4rem;
+  margin: 0 0 10px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--marca);
 }
 
 header p {
-  margin: 0 0 24px;
+  max-width: 62ch;
+  margin: 0 0 28px;
+  font-size: 1.05rem;
   color: var(--texto-suave);
 }
 
-/* Espaço entre o botão do Google e o formulário */
+/* Botão de login do Google */
 #botao-google,
-.g_id_signin {
+.g_id_signin,
+[id*="google" i] {
   margin-bottom: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--sombra);
 }
 
+/* Cartão do formulário */
 form {
   display: grid;
   grid-template-columns: minmax(120px, 1fr) 2fr;
-  gap: 6px 12px;
+  gap: 8px 14px;
   align-items: end;
-  padding: 20px;
+  padding: 24px;
   background: var(--superficie);
   border: 1px solid var(--borda);
-  border-radius: 10px;
+  border-radius: 12px;
+  box-shadow: var(--sombra);
 }
 
-/* label ocupa a linha de cima só sobre o input */
 label {
   grid-column: 1;
   grid-row: 1;
-  font-size: 0.85rem;
-  color: var(--texto-suave);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--texto);
 }
 
 input {
   grid-column: 1;
   grid-row: 2;
   width: 100%;
-  height: 44px;
-  padding: 10px 12px;
+  height: 46px;
+  padding: 0 14px;
   font: inherit;
   color: var(--texto);
-  background: var(--fundo);
-  border: 1px solid var(--borda);
-  border-radius: 6px;
+  background: #fff;
+  border: 1px solid #c4cbda;
+  border-radius: 8px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input::placeholder {
+  color: #9aa3b5;
+}
+
+input:hover {
+  border-color: #9aa6c0;
 }
 
 input:focus {
-  outline: 2px solid var(--destaque);
-  outline-offset: 1px;
+  outline: none;
+  border-color: var(--destaque);
+  box-shadow: 0 0 0 3px rgba(36, 87, 214, 0.2);
 }
 
 button {
-  padding: 10px 20px;
+  padding: 0 22px;
   font: inherit;
   font-weight: 600;
-  color: var(--fundo);
+  color: #fff;
   background: var(--destaque);
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s;
 }
 
 form button {
   grid-column: 2;
   grid-row: 2;
-  height: 44px; /* mesma altura do input */
+  height: 46px;
 }
 
 button:hover {
-  filter: brightness(1.1);
+  background: var(--destaque-escuro);
+}
+
+button:focus-visible {
+  outline: 3px solid rgba(36, 87, 214, 0.35);
+  outline-offset: 2px;
 }
 
 button:disabled {
-  opacity: 0.5;
+  opacity: 0.55;
   cursor: not-allowed;
 }
 
+/* Mensagem de erro/aviso */
 #mensagem {
-  min-height: 1.5em;
-  margin: 12px 0;
+  margin: 16px 0;
   color: var(--erro);
+  font-size: 0.95rem;
 }
 
+#mensagem:not(:empty) {
+  padding: 12px 14px;
+  background: var(--erro-fundo);
+  border: 1px solid #f3c1c6;
+  border-left: 4px solid var(--erro);
+  border-radius: 8px;
+}
+
+/* Resultado */
 figure {
-  margin: 0;
+  margin: 24px 0 0;
+  padding: 16px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  box-shadow: var(--sombra);
 }
 
 figure svg {
   display: block;
   width: 100%;
   height: auto;
+  background: #fff;
   border: 1px solid var(--borda);
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 #baixar {
+  height: 44px;
   margin-top: 16px;
-  color: var(--texto);
-  background: transparent;
-  border: 1px solid var(--borda);
+  color: var(--destaque);
+  background: #fff;
+  border: 1px solid var(--destaque);
+}
+
+#baixar:hover {
+  color: #fff;
+  background: var(--destaque);
 }
 
 @media (max-width: 560px) {
+  main {
+    padding-top: 32px;
+  }
+
   form {
     grid-template-columns: 1fr;
+    padding: 18px;
   }
 
   label,
