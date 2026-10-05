@@ -2,7 +2,7 @@
 // O navegador só envia o número e o token do Google para o servidor
 // e exibe o SVG que recebe de volta.
 
-const CLIENT_ID = "COLE_AQUI_SEU_CLIENT_ID.apps.googleusercontent.com";
+const CLIENT_ID = "60451002008-jqtg3bkejebsmlvmvqmaqcccg55rqm67.apps.googleusercontent.com";
 
 const formulario = document.getElementById("formulario");
 const campoNumero = document.getElementById("numero");
