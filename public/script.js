@@ -4,6 +4,7 @@
 
 const CLIENT_ID = "60451002008-jqtg3bkejebsmlvmvqmaqcccg55rqm67.apps.googleusercontent.com";
 
+
 const formulario = document.getElementById("formulario");
 const campoNumero = document.getElementById("numero");
 const area = document.getElementById("desenho");
